@@ -16,11 +16,14 @@ st.set_page_config(
 # -----------------------------
 @st.cache_resource
 def load_model():
-    with open("ckd_random_forest_model.sav", "rb") as file:
-        return pickle.load(file)
+    try:
+        with open("ckd_random_forest_model.sav", "rb") as file:
+            return pickle.load(file)
 
-model = load_model()
-
+    except Exception as e:
+        st.error("Model loading failed")
+        st.code(str(e))
+        st.stop()
 # -----------------------------
 # Title
 # -----------------------------
@@ -50,7 +53,7 @@ with col1:
 
 with col2:
     rbc = st.selectbox("Red Blood Cells", ["normal", "abnormal"])
-    pc = st.selectbox("Pus Cell", ["normal", "abormal"])
+    pc = st.selectbox("Pus Cell", ["normal", "abnormal"])
     pcc = st.selectbox("Pus Cell Clumps", ["notpresent", "present"])
     ba = st.selectbox("Bacteria", ["notpresent", "present"])
     bgr = st.number_input("Blood Glucose", value=120.0)
