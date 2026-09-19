@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nephro AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>NEPHRO AI</h1>
+            <p>Chronic Kidney Disease Classification</p>
+        </div>
+
+        <div class="card">
+
+            <h2>Patient Information</h2>
+
+            <form method="POST">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Age</label>
+                        <input type="number" name="age" step="any" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Blood Pressure</label>
+                        <input type="number" name="bp" step="any" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Specific Gravity</label>
+                        <input type="number" name="sg" step="any" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Albumin</label>
+                        <input type="number" name="al" min="0" max="5" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sugar</label>
+                        <input type="number" name="su" min="0" max="5" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Red Blood Cells</label>
+                        <select name="rbc" required>
+                            <option value="">Select</option>
+                            <option value="normal">Normal</option>
+                            <option value="abnormal">Abnormal</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Pus Cell</label>
+                        <select name="pc" required>
+                            <option value="">Select</option>
+                            <option value="normal">Normal</option>
+                            <option value="abnormal">Abnormal</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Pus Cell Clumps</label>
+                        <select name="pcc" required>
+                            <option value="">Select</option>
+                            <option value="present">Present</option>
+                            <option value="notpresent">Not Present</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Bacteria</label>
+                        <select name="ba" required>
+                            <option value="">Select</option>
+                            <option value="present">Present</option>
+                            <option value="notpresent">Not Present</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Blood Glucose</label>
+                        <input type="number" name="bgr" step="any" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Blood Urea</label>
+                        <input type="number" name="bu" step="any" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Serum Creatinine</label>
+                        <input type="number" name="sc" step="any" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sodium</label>
+                        <input type="number" name="sod" step="any" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Potassium</label>
+                        <input type="number" name="pot" step="any" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Hemoglobin</label>
+                        <input type="number" name="hemo" step="any" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Packed Cell Volume</label>
+                        <input type="number" name="pcv" step="any" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>White Blood Cell Count</label>
+                        <input type="number" name="wc" step="any" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Red Blood Cell Count</label>
+                        <input type="number" name="rc" step="any" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Hypertension</label>
+                        <select name="htn" required>
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Diabetes Mellitus</label>
+                        <select name="dm" required>
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Coronary Artery Disease</label>
+                        <select name="cad" required>
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Appetite</label>
+                        <select name="appet" required>
+                            <option value="">Select</option>
+                            <option value="good">Good</option>
+                            <option value="poor">Poor</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Pedal Edema</label>
+                        <select name="pe" required>
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Anemia</label>
+                        <select name="ane" required>
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <button type="submit">
+                    Predict CKD
+                </button>
+
+            </form>
+
+            {% if prediction %}
+
+            <div class="result
+                {% if prediction == 'CKD' %}
+                    danger
+                {% else %}
+                    safe
+                {% endif %}">
+
+                {% if prediction == "CKD" %}
+
+                    <h2>CKD Predicted</h2>
+                    <p>The model classified the patient record as <b>CKD</b>.</p>
+
+                {% else %}
+
+                    <h2>NOT CKD Predicted</h2>
+                    <p>The model classified the patient record as <b>NOT CKD</b>.</p>
+
+                {% endif %}
+
+            </div>
+
+            {% endif %}
+
+            {% if error %}
+
+            <div class="error">
+                <h3>Error</h3>
+                <p>{{ error }}</p>
+            </div>
+
+            {% endif %}
+
+            <div class="note">
+                <b>Note:</b>
+                This application is an educational machine-learning project
+                and should not be used as a medical diagnosis.
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
